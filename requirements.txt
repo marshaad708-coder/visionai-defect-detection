@@ -1,0 +1,19 @@
+# VisionAI: AI-Powered Defect Detection System for Smart Manufacturing
+# All libraries are free and open-source. Tested with Python 3.10 - 3.12.
+#
+# WINDOWS CPU-ONLY INSTALL (recommended, smaller download):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+# See README.md for the full step-by-step Windows guide.
+
+torch
+torchvision
+numpy
+pillow
+opencv-python-headless
+scikit-learn
+matplotlib
+flask
+pyyaml
+requests
+tqdm
