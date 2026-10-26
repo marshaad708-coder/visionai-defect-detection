@@ -1,0 +1,41 @@
+# VisionAI Track A (alternative) — ResNet-18 transfer learning on NEU-CLS.
+# Recommended for machines with more RAM / a GPU. Same data splits, eval and
+# inference code as the compact CNN; only the model and preprocessing differ.
+project: visionai-neu-resnet18
+seed: 42
+
+data:
+  root: data/raw/neu
+  image_size: 224
+  in_channels: 3            # grayscale repeated to 3 channels for ImageNet weights
+  imagenet_norm: true
+  batch_size: 32
+  num_workers: 0
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+model:
+  name: resnet18
+  num_classes: 6
+  pretrained: true
+  freeze_backbone: false    # fine-tune all layers with a small learning rate
+
+train:
+  epochs: 25
+  lr: 0.0001
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  early_stopping_patience: 6
+  monitor: val_macro_f1
+
+augment:
+  rotation_deg: 10
+  hflip: true
+  translate: 0.05
+
+paths:
+  checkpoint: checkpoints/neu_resnet18_best.pt
+  results: results/neu_resnet18_results.json
+  splits: results/neu_splits.json   # same splits -> comparable numbers
+  log: results/neu_resnet18_training_log.csv

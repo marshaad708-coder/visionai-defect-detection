@@ -1,0 +1,38 @@
+# VisionAI Track A — supervised defect classification on NEU-CLS.
+# Compact CNN trained from scratch. Fits CPU-only machines (incl. 32 GB RAM Windows PC).
+project: visionai-neu-classifier
+seed: 42
+
+data:
+  root: data/raw/neu        # folder containing the 6 defect-class subfolders
+  image_size: 224            # NEU images are natively 200x200; resized to 224
+  in_channels: 1             # grayscale
+  batch_size: 32
+  num_workers: 0             # 0 = safest on Windows; raise to 2-4 on Linux for speed
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+model:
+  name: compact_cnn
+  num_classes: 6
+  dropout: 0.3
+
+train:
+  epochs: 40
+  lr: 0.0003
+  weight_decay: 0.0001
+  optimizer: adamw
+  scheduler: cosine
+  early_stopping_patience: 8
+  monitor: val_macro_f1     # checkpoint the epoch with best validation macro-F1
+
+augment:
+  rotation_deg: 10
+  hflip: true
+  translate: 0.05
+
+paths:
+  checkpoint: checkpoints/neu_compactcnn_best.pt
+  results: results/neu_results.json
+  splits: results/neu_splits.json
+  log: results/neu_training_log.csv

@@ -1,0 +1,24 @@
+# VisionAI Track B — unsupervised anomaly detection (PatchCore) on MVTec AD.
+# Trains on NORMAL images only; detects + localizes defects at test time.
+project: visionai-mvtec-patchcore
+seed: 42
+
+data:
+  root: data/raw/mvtec      # contains one folder per category, e.g. data/raw/mvtec/toothbrush
+  category: toothbrush
+  image_size: 224
+
+model:
+  name: patchcore
+  backbone: wide_resnet50_2
+  feature_layers: [layer2, layer3]  # mid-level features, per the PatchCore paper
+  coreset_ratio: 0.1                # keep ~10% of patch embeddings (greedy k-center)
+  coreset_max: 20000                # hard cap on memory-bank size
+  coreset_batch: 64                 # points selected per greedy step (1 = exact paper algorithm)
+  patches_per_image: 128            # random pre-filter per train image (bounds CPU RAM)
+  knn_k: 9                          # neighbours used for score re-weighting
+  threshold_quantile: 0.995         # operating point on train scores (not a probability)
+
+paths:
+  bank: checkpoints/patchcore_toothbrush.pt   # memory bank + operating threshold
+  results: results/mvtec_toothbrush_results.json
