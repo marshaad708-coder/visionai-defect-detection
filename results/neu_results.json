@@ -1,0 +1,118 @@
+{
+  "config": "configs/neu_compactcnn.yaml",
+  "checkpoint": "checkpoints/neu_compactcnn_best.pt",
+  "checkpoint_epoch": 14,
+  "n_test": 270,
+  "accuracy": 0.9888888888888889,
+  "per_class": {
+    "crazing": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 45,
+      "auroc_ovr": 1.0
+    },
+    "inclusion": {
+      "precision": 0.9574468085106383,
+      "recall": 1.0,
+      "f1": 0.9782608695652174,
+      "support": 45,
+      "auroc_ovr": 0.9980246913580246
+    },
+    "patches": {
+      "precision": 1.0,
+      "recall": 0.9777777777777777,
+      "f1": 0.9887640449438202,
+      "support": 45,
+      "auroc_ovr": 1.0
+    },
+    "pitted_surface": {
+      "precision": 1.0,
+      "recall": 0.9777777777777777,
+      "f1": 0.9887640449438202,
+      "support": 45,
+      "auroc_ovr": 1.0
+    },
+    "rolled-in_scale": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 45,
+      "auroc_ovr": 1.0
+    },
+    "scratches": {
+      "precision": 0.9777777777777777,
+      "recall": 0.9777777777777777,
+      "f1": 0.9777777777777777,
+      "support": 45,
+      "auroc_ovr": 0.9980246913580246
+    }
+  },
+  "macro_avg": {
+    "precision": 0.9892040977147362,
+    "recall": 0.9888888888888889,
+    "f1": 0.9889277895384393
+  },
+  "micro_avg": {
+    "precision": 0.9888888888888889,
+    "recall": 0.9888888888888889,
+    "f1": 0.9888888888888889
+  },
+  "weighted_avg": {
+    "precision": 0.989204097714736,
+    "recall": 0.9888888888888889,
+    "f1": 0.9889277895384394
+  },
+  "auroc_ovr": 0.999341563786008,
+  "confusion_matrix": [
+    [
+      45,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      45,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      44,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      44,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      45,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      44
+    ]
+  ],
+  "note": "Softmax outputs and AUROC are computed from raw model scores. Softmax values are NOT calibrated probabilities."
+}
