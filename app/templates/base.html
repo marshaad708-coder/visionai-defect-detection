@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VisionAI{% endblock %} — Defect Detection for Smart Manufacturing</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">VisionAI <span>Defect Detection · Smart Manufacturing</span></div>
+  <nav>
+    <a href="{{ url_for('index') }}">Inspect</a>
+    <a href="{{ url_for('metrics') }}">Metrics</a>
+    <a href="{{ url_for('about') }}">About</a>
+  </nav>
+</header>
+<main class="wrap">
+  {% block content %}{% endblock %}
+</main>
+<footer class="foot">
+  VisionAI research prototype · Track A: NEU-CLS classification · Track B: MVTec AD anomaly detection
+</footer>
+</body>
+</html>

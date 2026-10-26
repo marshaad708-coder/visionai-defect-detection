@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<h1>About this project</h1>
+<div class="card">
+  <h2>What it does</h2>
+  <p>VisionAI is a research prototype for visual defect detection in smart manufacturing,
+  built with free and open-source tools only. It has two tracks:</p>
+  <ul>
+    <li><strong>Track A — supervised defect classification.</strong> A compact CNN
+    (with an optional ResNet-18 transfer-learning baseline) classifies steel-surface
+    images from the NEU dataset into 6 defect types. Grad-CAM explains each decision.</li>
+    <li><strong>Track B — unsupervised anomaly detection.</strong> PatchCore
+    (pretrained features + coreset memory bank + nearest-neighbour scoring) is trained
+    on normal MVTec AD images only, then flags and localizes defects it has never seen.</li>
+  </ul>
+</div>
+<div class="card">
+  <h2>Datasets &amp; citations</h2>
+  <ul>
+    <li><strong>NEU surface defect database</strong> — 1,800 images, 6 classes.
+    K. Song, Y. Yan, "A noise robust method based on completed local binary patterns
+    for hot-rolled steel strip surface defects," <em>Applied Surface Science</em>, 2013.
+    Free for research use (Northeastern University).</li>
+    <li><strong>MVTec AD</strong> — 15 industrial categories with pixel-level defect masks.
+    P. Bergmann et al., "MVTec AD — A Comprehensive Real-World Dataset for Unsupervised
+    Anomaly Detection," <em>CVPR</em> 2019. License CC BY-NC-SA 4.0.</li>
+  </ul>
+</div>
+<div class="card">
+  <h2>Scores are not calibrated probabilities</h2>
+  <p>{{ calibration_note }}</p>
+  <p class="muted small">Softmax outputs rank classes but are typically overconfident;
+  anomaly scores are distances in feature space. Calibrating them (e.g. temperature
+  scaling, conformal thresholds) is listed as future work — the dashboard never
+  presents them as true probabilities.</p>
+</div>
+<div class="card">
+  <h2>Reproduce it</h2>
+  <pre><code>pip install -r requirements.txt
+python scripts/download_neu.py
+python src/train_classifier.py --config configs/neu_compactcnn.yaml
+python src/evaluate.py --config configs/neu_compactcnn.yaml
+python app/app.py   # http://127.0.0.1:5000</code></pre>
+</div>
+{% endblock %}

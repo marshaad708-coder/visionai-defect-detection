@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Result{% endblock %}
+{% block content %}
+<h1>Analysis result</h1>
+{% if error %}
+  <div class="alert error"><strong>Something went wrong.</strong><br>{{ error|safe }}</div>
+  <p><a class="btn" href="{{ url_for('index') }}">← Try another image</a></p>
+{% else %}
+  <div class="grid2">
+    <div class="card">
+      <h2>Input image</h2>
+      <img class="result-img" src="{{ preview_uri }}" alt="Uploaded image">
+    </div>
+    <div class="card">
+      <h2>Grad-CAM heatmap</h2>
+      <img class="result-img" src="{{ overlay_uri }}" alt="Defect heatmap overlay">
+      <p class="muted small">Warm areas contributed most to the predicted class
+      (post-hoc explanation, not an independent detector).</p>
+    </div>
+  </div>
+  <div class="card">
+      <h2>Predicted: <span class="pred">{{ predicted }}</span></h2>
+      <h3>Model scores by class</h3>
+      {% for cls, s in scores.items() %}
+      <div class="bar-row">
+        <span class="bar-label">{{ cls }}</span>
+        <div class="bar-track"><div class="bar-fill" style="width:{{ (s*100)|round(1) }}%"></div></div>
+        <span class="bar-val">{{ "%.3f"|format(s) }}</span>
+      </div>
+      {% endfor %}
+      <p class="muted small">{{ calibration_note }}</p>
+    </div>
+  </div>
+  <p><a class="btn" href="{{ url_for('index') }}">← Analyze another image</a></p>
+{% endif %}
+{% endblock %}

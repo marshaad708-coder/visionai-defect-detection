@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Inspect{% endblock %}
+{% block content %}
+<h1>Inspect a product image</h1>
+<p class="muted">Upload a steel-surface image. The trained classifier predicts the defect
+type and Grad-CAM highlights the regions that drove the decision.</p>
+
+{% if not model_ready %}
+<div class="alert warn">
+  <strong>Model not loaded.</strong><br>{{ model_error }}<br>
+  Train it with:<br>
+  <code>python src/train_classifier.py --config configs/neu_compactcnn.yaml</code>
+</div>
+{% endif %}
+
+<form class="card" action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+  <label class="filebox">
+    <input type="file" name="image" accept=".png,.jpg,.jpeg,.bmp,.webp" required
+           onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0]);
+                    document.getElementById('preview').style.display='block'">
+    <span>Choose image…</span>
+  </label>
+  <img id="preview" class="preview" alt="" style="display:none">
+  <button type="submit" {% if not model_ready %}disabled{% endif %}>Analyze defect</button>
+  <p class="muted small">PNG, JPG, BMP or WebP · max 8 MB. Images never leave this machine.</p>
+</form>
+
+{% if classes %}
+<div class="card">
+  <h2>Detectable defect classes</h2>
+  <div class="chips">{% for c in classes %}<span class="chip">{{ c }}</span>{% endfor %}</div>
+</div>
+{% endif %}
+{% endblock %}

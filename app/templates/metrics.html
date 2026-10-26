@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Metrics{% endblock %}
+{% block content %}
+<h1>Test-set evaluation</h1>
+{% if not results %}
+  <div class="alert warn"><strong>No evaluation results yet.</strong><br>
+  Run <code>python src/train_classifier.py --config configs/neu_compactcnn.yaml</code>
+  then <code>python src/evaluate.py --config configs/neu_compactcnn.yaml</code>.</div>
+{% else %}
+  <p class="muted">Held-out test set: <strong>{{ results.n_test }}</strong> images ·
+  checkpoint: <code>{{ results.checkpoint }}</code> (epoch {{ results.checkpoint_epoch }})</p>
+  <div class="statgrid">
+    <div class="stat"><div class="stat-v">{{ "%.3f"|format(results.accuracy) }}</div><div class="stat-k">Accuracy</div></div>
+    <div class="stat"><div class="stat-v">{{ "%.3f"|format(results.macro_avg.f1) }}</div><div class="stat-k">Macro F1</div></div>
+    <div class="stat"><div class="stat-v">{{ "%.3f"|format(results.macro_avg.precision) }}</div><div class="stat-k">Macro precision</div></div>
+    <div class="stat"><div class="stat-v">{{ "%.3f"|format(results.macro_avg.recall) }}</div><div class="stat-k">Macro recall</div></div>
+    <div class="stat"><div class="stat-v">{{ "%.3f"|format(results.auroc_ovr) }}</div><div class="stat-k">AUROC (OvR)</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Per-class precision / recall / F1 / AUROC</h2>
+    <table class="tbl">
+      <tr><th>Class</th><th>Precision</th><th>Recall</th><th>F1</th><th>AUROC</th><th>Support</th></tr>
+      {% for cls, m in results.per_class.items() %}
+      <tr><td>{{ cls }}</td><td>{{ "%.3f"|format(m.precision) }}</td>
+          <td>{{ "%.3f"|format(m.recall) }}</td><td>{{ "%.3f"|format(m.f1) }}</td>
+          <td>{{ "%.3f"|format(m.auroc_ovr) }}</td><td>{{ m.support }}</td></tr>
+      {% endfor %}
+    </table>
+    <p class="muted small">{{ results.note }}</p>
+  </div>
+
+  {% if cm_file %}
+  <div class="card">
+    <h2>Confusion matrix</h2>
+    <img class="result-img" src="{{ url_for('result_file', fname=cm_file) }}" alt="Confusion matrix">
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}
