@@ -1,0 +1,60 @@
+/* VisionAI dashboard — clean professional theme, no external dependencies. */
+:root {
+  --bg: #f4f6f8; --card: #ffffff; --ink: #1f2937; --muted: #6b7280;
+  --accent: #1d4ed8; --accent-d: #1e40af; --ok: #047857; --warn: #b45309;
+  --err: #b91c1c; --line: #e5e7eb;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+       background: var(--bg); color: var(--ink); }
+.topbar { background: #111827; color: #f9fafb; padding: 14px 28px;
+          display: flex; justify-content: space-between; align-items: center; }
+.brand { font-size: 20px; font-weight: 700; }
+.brand span { font-size: 13px; font-weight: 400; color: #9ca3af; margin-left: 8px; }
+.topbar nav a { color: #d1d5db; text-decoration: none; margin-left: 22px; font-size: 15px; }
+.topbar nav a:hover { color: #fff; }
+.wrap { max-width: 1080px; margin: 28px auto; padding: 0 20px 40px; }
+h1 { font-size: 26px; margin: 6px 0 10px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+h3 { font-size: 15px; margin: 18px 0 8px; }
+.muted { color: var(--muted); } .small { font-size: 13px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 20px 22px; margin: 18px 0; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 820px) { .grid2 { grid-template-columns: 1fr; } }
+.filebox { display: inline-block; border: 2px dashed var(--line); border-radius: 8px;
+           padding: 26px 34px; cursor: pointer; color: var(--muted); margin-bottom: 14px; }
+.filebox input { display: none; }
+.filebox:hover { border-color: var(--accent); color: var(--accent); }
+.preview { display: block; max-width: 320px; margin: 12px 0; border-radius: 8px;
+           border: 1px solid var(--line); }
+button, .btn { background: var(--accent); color: #fff; border: none; border-radius: 8px;
+               padding: 11px 26px; font-size: 15px; cursor: pointer; text-decoration: none;
+               display: inline-block; }
+button:hover, .btn:hover { background: var(--accent-d); }
+button:disabled { background: #9ca3af; cursor: not-allowed; }
+.result-img { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); }
+.pred { color: var(--accent-d); }
+.bar-row { display: flex; align-items: center; gap: 10px; margin: 7px 0; }
+.bar-label { width: 130px; font-size: 13px; }
+.bar-track { flex: 1; height: 12px; background: #eef2f7; border-radius: 6px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
+.bar-val { width: 52px; text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; }
+.statgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 18px 0; }
+@media (max-width: 820px) { .statgrid { grid-template-columns: repeat(2, 1fr); } }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+        padding: 14px; text-align: center; }
+.stat-v { font-size: 24px; font-weight: 700; color: var(--accent-d); }
+.stat-k { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th, .tbl td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.tbl th { color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: #eef2ff; color: #3730a3; border-radius: 999px; padding: 6px 14px; font-size: 13px; }
+.alert { border-radius: 10px; padding: 16px 18px; margin: 18px 0; }
+.alert.warn { background: #fef3c7; border: 1px solid #fcd34d; }
+.alert.error { background: #fee2e2; border: 1px solid #fca5a5; }
+code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+pre { background: #111827; color: #e5e7eb; padding: 16px; border-radius: 8px; overflow-x: auto; }
+pre code { background: none; color: inherit; }
+.foot { text-align: center; color: var(--muted); font-size: 12px; padding: 18px; }
